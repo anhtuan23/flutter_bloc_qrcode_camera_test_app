@@ -6,13 +6,13 @@ import 'package:equatable/equatable.dart';
 part 'appbloc_event.dart';
 part 'appbloc_state.dart';
 
-class AppblocBloc extends Bloc<AppblocEvent, AppblocState> {
+class AppblocBloc extends Bloc<AppBlocEvents, AppblocState> {
   @override
   AppblocState get initialState => AppblocInitial();
 
   @override
   Stream<AppblocState> mapEventToState(
-    AppblocEvent event,
+    AppBlocEvents event,
   ) async* {
     // TODO: implement mapEventToState
   }
