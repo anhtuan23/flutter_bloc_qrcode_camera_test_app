@@ -47,7 +47,7 @@ class SignUpPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.camera),
           onPressed: () {
-            BlocProvider.of<AppBloc>(context).add(AppBlocEvents.AppSignUpSent);
+            BlocProvider.of<AppBloc>(context).add(AppBarcodeResultReceived("barcodeResult from button"));
           },
         ),
       ),
@@ -68,7 +68,7 @@ class UserInfoPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.exit_to_app),
           onPressed: () {
-            BlocProvider.of<AppBloc>(context).add(AppBlocEvents.AppSignOutSent);
+            BlocProvider.of<AppBloc>(context).add(AppSignOutSent());
           },
         ),
       ),

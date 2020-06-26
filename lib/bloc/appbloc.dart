@@ -18,6 +18,8 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
       yield AppBlocSignedUp();
     } else if (event is AppSignOutSent) {
       yield AppBlocSignedOut();
+    } else if (event is AppBarcodeResultReceived){
+      yield AppBlocSignedOut(barCodeResult: event.barcodeResult);
     }
   }
 }
