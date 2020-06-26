@@ -35,6 +35,8 @@ dev_dependencies:
   flutter_bloc: ^4.0.0
   equatable: ^1.0.0  
   barcode_scan: ^3.0.1
+  shared_preferences: ^0.5.7+3
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

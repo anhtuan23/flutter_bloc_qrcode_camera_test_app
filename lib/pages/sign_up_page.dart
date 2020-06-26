@@ -1,4 +1,5 @@
 import 'package:bloc_barcode_camera_demo_app/bloc/appbloc.dart';
+import 'package:bloc_barcode_camera_demo_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -95,7 +96,7 @@ class SignInForm extends StatelessWidget {
               SizedBox(height: 20),
               RaisedButton(
                 onPressed: () {
-                  // Constants.prefs.setBool('loggedIn', true);
+                  Constants.prefs.setBool(Constants.loggedInPrefKey, true);
                 },
                 color: Colors.cyan,
                 child: Text("Sign in"),

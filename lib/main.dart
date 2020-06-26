@@ -1,12 +1,17 @@
 import 'package:bloc_barcode_camera_demo_app/pages/barcode_scanning_page.dart';
 import 'package:bloc_barcode_camera_demo_app/pages/sign_up_page.dart';
 import 'package:bloc_barcode_camera_demo_app/pages/user_info_page.dart';
+import 'package:bloc_barcode_camera_demo_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'bloc/appbloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+import 'package:shared_preferences/shared_preferences.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Constants.prefs = await SharedPreferences.getInstance();
   runApp(BlocProvider(
     create: (context) => AppBloc(),
     child: MyApp(),
@@ -34,4 +39,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
