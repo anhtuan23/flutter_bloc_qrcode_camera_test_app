@@ -15,7 +15,8 @@ Currently, there are 3 screens:
 (screen 1 🎬 scan barcode/qrcode) ➡ (screen 2 🎬 input username & password) ➡ (screen 3 🎬 signout) ➡ (screen 1 🎬 re-register)
 ### Open after registered
 (screen 3 🎬 signout) ➡ (screen 1 🎬 re-register)
-All input info from screen (1) and (2) is loaded and displayed directly on screen (3). Data is persisted using SharedPref.
+
+***Explanation***: All input info from screen (1) and (2) is loaded and displayed directly on screen (3). Data is persisted using SharedPref.
 # TODO
 - Capture images with GPS exif
 - Delete captured images
