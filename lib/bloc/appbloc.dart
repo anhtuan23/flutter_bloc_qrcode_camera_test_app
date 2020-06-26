@@ -6,21 +6,22 @@ import 'package:meta/meta.dart';
 part 'appbloc_event.dart';
 part 'appbloc_state.dart';
 
-class AppBloc extends Bloc<AppBlocEvents, AppBlocState> {
+class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
   @override
   AppBlocState get initialState => AppBlocSignedOut();
 
   @override
   Stream<AppBlocState> mapEventToState(
-    AppBlocEvents event,
+    AppBlocEvent event,
   ) async* {
-    switch (event) {
-      case AppBlocEvents.AppSignUpSent:
-        yield AppBlocSignedUp();
-        break;
-      case AppBlocEvents.AppSignOutSent:
-        yield AppBlocSignedOut();
-        break;
+    if (event is AppSignUpSent) {
+      yield AppBlocSignedUp();
+    } else if (event is AppSignOutSent) {
+      yield AppBlocSignedOut();
+    } else if (event is AppBarcodeResultReceived){
+      yield AppBlocSigningUp(barCodeResult: event.barcodeResult);
+    } else if (event is AppBarcodeResultErrorReceived){
+      yield AppBlocSignedOut(message: "Barcode scanning error");
     }
   }
 }
