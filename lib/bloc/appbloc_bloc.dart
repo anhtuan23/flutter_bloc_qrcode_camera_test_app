@@ -8,7 +8,7 @@ part 'appbloc_state.dart';
 
 class AppblocBloc extends Bloc<AppblocEvents, AppblocState> {
   @override
-  AppblocState get initialState => AppblocInitial();
+  AppblocState get initialState => AppblocSignedOut();
 
   @override
   Stream<AppblocState> mapEventToState(
