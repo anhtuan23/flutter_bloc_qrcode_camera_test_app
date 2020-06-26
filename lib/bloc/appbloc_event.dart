@@ -12,3 +12,5 @@ class AppBarcodeResultReceived extends AppBlocEvent {
   final String barcodeResult;
   AppBarcodeResultReceived(this.barcodeResult) : super();
 }
+
+class AppBarcodeResultErrorReceived extends AppBlocEvent{}

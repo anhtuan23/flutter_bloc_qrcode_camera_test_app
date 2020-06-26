@@ -19,7 +19,9 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
     } else if (event is AppSignOutSent) {
       yield AppBlocSignedOut();
     } else if (event is AppBarcodeResultReceived){
-      yield AppBlocSignedOut(barCodeResult: event.barcodeResult);
+      yield AppBlocSigningUp(barCodeResult: event.barcodeResult);
+    } else if (event is AppBarcodeResultErrorReceived){
+      yield AppBlocSignedOut(message: "Barcode scanning error");
     }
   }
 }

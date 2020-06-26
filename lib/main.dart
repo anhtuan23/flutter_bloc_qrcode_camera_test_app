@@ -20,32 +20,32 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocBuilder<AppBloc, AppBlocState>(
-        builder: (context, state) =>
-            state is AppBlocSignedOut ? SignUpPage() : UserInfoPage(),
-      ),
+      home: BlocBuilder<AppBloc, AppBlocState>(builder: (context, state) {
+        if (state is AppBlocSignedOut) {
+          return BarcodeScanningPage();
+        } else if (state is AppBlocSigningUp) {
+          return SignUpPage();
+        } else {
+          return UserInfoPage();
+        }
+      }),
     );
   }
 }
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key key}) : super(key: key);
+class BarcodeScanningPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Sign Up"),
+          title: Text("Barcode Scanning"),
         ),
         body: BlocBuilder<AppBloc, AppBlocState>(
           builder: (context, state) {
-            var resultText = "Please scan Barcode or QRcode"; 
-            if (state.barCodeResult != null){
-              resultText = 'Barcode result: ${state.barCodeResult}';
-            }
             return Center(
-              child: Text(resultText),
+              child: Text(state.message),
             );
           },
         ),
@@ -53,8 +53,42 @@ class SignUpPage extends StatelessWidget {
           child: Icon(Icons.camera),
           onPressed: () async {
             var result = await BarcodeScanner.scan();
-            BlocProvider.of<AppBloc>(context).add(AppBarcodeResultReceived(result.rawContent));
+            switch (result.type) {
+              case ResultType.Barcode:
+                BlocProvider.of<AppBloc>(context)
+                    .add(AppBarcodeResultReceived(result.rawContent));
+                break;
+              case ResultType.Cancelled:
+              case ResultType.Error:
+              default:
+                BlocProvider.of<AppBloc>(context)
+                    .add(AppBarcodeResultErrorReceived());
+            }
           },
+        ),
+      ),
+    );
+  }
+}
+class SignUpPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Signing Up"),
+        ),
+        body: BlocBuilder<AppBloc, AppBlocState>(
+          builder: (context, state) {
+            return Center(
+              child: Text("Enter Info"),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.send),
+          onPressed: () {},
         ),
       ),
     );
