@@ -99,7 +99,7 @@ class SignInForm extends StatelessWidget {
                   Constants.prefs.setBool(Constants.loggedInPrefKey, true);
                 },
                 color: Colors.cyan,
-                child: Text("Sign in"),
+                child: Text("Sign Up"),
                 textColor: Colors.white,
               )
             ],
