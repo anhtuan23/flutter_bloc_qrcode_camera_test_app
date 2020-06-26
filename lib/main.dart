@@ -37,6 +37,13 @@ class SignUpPage extends StatelessWidget {
         appBar: AppBar(
           title: Text("Sign Up"),
         ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.camera),
+          onPressed: () {
+            BlocProvider.of<AppblocBloc>(context)
+                .add(AppblocEvents.AppSignUpSent);
+          },
+        ),
       ),
     );
   }
@@ -51,6 +58,13 @@ class UserInfoPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text("User Info"),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.exit_to_app),
+          onPressed: () {
+            BlocProvider.of<AppblocBloc>(context)
+                .add(AppblocEvents.AppSignOutSent);
+          },
         ),
       ),
     );
