@@ -1,3 +1,14 @@
 part of 'appbloc.dart';
 
-enum AppBlocEvents {AppSignUpSent, AppSignOutSent}
+abstract class AppBlocEvent {
+  const AppBlocEvent();
+}
+
+class AppSignUpSent extends AppBlocEvent {}
+
+class AppSignOutSent extends AppBlocEvent {}
+
+class AppBarcodeResultReceived extends AppBlocEvent {
+  final String barcodeResult;
+  AppBarcodeResultReceived(this.barcodeResult) : super();
+}
