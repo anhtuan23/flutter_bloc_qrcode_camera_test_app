@@ -40,8 +40,12 @@ class SignUpPage extends StatelessWidget {
         ),
         body: BlocBuilder<AppBloc, AppBlocState>(
           builder: (context, state) {
+            var resultText = "Please scan Barcode or QRcode"; 
+            if (state.barCodeResult != null){
+              resultText = 'Barcode result: ${state.barCodeResult}';
+            }
             return Center(
-              child: Text("Barcode result: ${state.barCodeResult}"),
+              child: Text(resultText),
             );
           },
         ),
