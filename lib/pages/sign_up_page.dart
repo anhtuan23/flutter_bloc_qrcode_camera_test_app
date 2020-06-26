@@ -43,10 +43,6 @@ class SignUpPage extends StatelessWidget {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.send),
-          onPressed: () {},
-        ),
       ),
     );
   }
