@@ -32,13 +32,16 @@ class SignUpPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SingleChildScrollView(
-                      child: SignInForm(
+                      child: BlocBuilder<AppBloc, AppBlocState>(
+                        builder: (context, state) => SignInForm(
                           formKey: formKey,
                           usernameController: _usernameController,
-                          passwordController: _passwordController),
+                          passwordController: _passwordController,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             );
           },
@@ -64,6 +67,8 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppBloc bloc = BlocProvider.of<AppBloc>(context);
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -71,6 +76,7 @@ class SignInForm extends StatelessWidget {
           key: formKey,
           child: Column(
             children: <Widget>[
+              Text(bloc.state.barcodeResult),
               TextFormField(
                 controller: _usernameController,
                 keyboardType: TextInputType.emailAddress,
@@ -93,6 +99,7 @@ class SignInForm extends StatelessWidget {
               RaisedButton(
                 onPressed: () {
                   Constants.prefs.setBool(Constants.loggedInPrefKey, true);
+                  // bloc.add(AppSignUpSent());
                 },
                 color: Colors.cyan,
                 child: Text("Sign Up"),
