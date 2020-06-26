@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'bloc/appbloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:barcode_scan/barcode_scan.dart';
 
 void main() {
   runApp(BlocProvider(
@@ -46,8 +47,9 @@ class SignUpPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.camera),
-          onPressed: () {
-            BlocProvider.of<AppBloc>(context).add(AppBarcodeResultReceived("barcodeResult from button"));
+          onPressed: () async {
+            var result = await BarcodeScanner.scan();
+            BlocProvider.of<AppBloc>(context).add(AppBarcodeResultReceived(result.rawContent));
           },
         ),
       ),
