@@ -1,7 +1,7 @@
-part of 'appbloc_bloc.dart';
+part of 'appbloc.dart';
 
 @immutable
-abstract class AppblocState {}
+abstract class AppBlocState {}
 
-class AppblocSignedUp extends AppblocState {}
-class AppblocSignedOut extends AppblocState {}
+class AppBlocSignedUp extends AppBlocState {}
+class AppBlocSignedOut extends AppBlocState {}

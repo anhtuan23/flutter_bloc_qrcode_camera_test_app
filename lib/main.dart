@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'bloc/appbloc_bloc.dart';
+import 'bloc/appbloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(BlocProvider(
-    create: (context) => AppblocBloc(),
+    create: (context) => AppBloc(),
     child: MyApp(),
   ));
 }
@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocBuilder<AppblocBloc, AppblocState>(
+      home: BlocBuilder<AppBloc, AppBlocState>(
         builder: (context, state) =>
-            state is AppblocSignedOut ? SignUpPage() : UserInfoPage(),
+            state is AppBlocSignedOut ? SignUpPage() : UserInfoPage(),
       ),
     );
   }
@@ -40,8 +40,8 @@ class SignUpPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.camera),
           onPressed: () {
-            BlocProvider.of<AppblocBloc>(context)
-                .add(AppblocEvents.AppSignUpSent);
+            BlocProvider.of<AppBloc>(context)
+                .add(AppBlocEvents.AppSignUpSent);
           },
         ),
       ),
@@ -62,8 +62,8 @@ class UserInfoPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.exit_to_app),
           onPressed: () {
-            BlocProvider.of<AppblocBloc>(context)
-                .add(AppblocEvents.AppSignOutSent);
+            BlocProvider.of<AppBloc>(context)
+                .add(AppBlocEvents.AppSignOutSent);
           },
         ),
       ),

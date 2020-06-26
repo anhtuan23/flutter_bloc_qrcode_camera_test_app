@@ -1,3 +1,3 @@
-part of 'appbloc_bloc.dart';
+part of 'appbloc.dart';
 
-enum AppblocEvents {AppSignUpSent, AppSignOutSent}
+enum AppBlocEvents {AppSignUpSent, AppSignOutSent}
