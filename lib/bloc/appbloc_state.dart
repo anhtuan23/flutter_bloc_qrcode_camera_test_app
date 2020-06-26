@@ -2,11 +2,11 @@ part of 'appbloc.dart';
 
 @immutable
 abstract class AppBlocState {
-  final String barCodeResult;
+  final String barcodeResult;
   final String message;
   final bool barcodeScanned;
 
-  const AppBlocState({this.barCodeResult, this.message, this.barcodeScanned});
+  const AppBlocState({this.barcodeResult, this.message, this.barcodeScanned});
 }
 
 class AppBlocSignedUp extends AppBlocState {}
@@ -16,9 +16,9 @@ class AppBlocSignedOut extends AppBlocState {
 }
 
 class AppBlocSigningUp extends AppBlocState {
-  const AppBlocSigningUp({@required barCodeResult})
+  const AppBlocSigningUp({@required barcodeResult})
       : super(
-            barCodeResult: barCodeResult,
-            message: 'Barcode result: $barCodeResult',
+            barcodeResult: barcodeResult,
+            message: 'Barcode result: $barcodeResult',
             barcodeScanned: true);
 }
