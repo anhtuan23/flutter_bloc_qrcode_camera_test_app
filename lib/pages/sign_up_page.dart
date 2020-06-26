@@ -99,7 +99,16 @@ class SignInForm extends StatelessWidget {
               RaisedButton(
                 onPressed: () {
                   Constants.prefs.setBool(Constants.loggedInPrefKey, true);
-                  // bloc.add(AppSignUpSent());
+                  Constants.prefs.setString(
+                      Constants.usernamePrefKey, _usernameController.text);
+                  Constants.prefs.setString(
+                      Constants.passwordPrefKey, _passwordController.text);
+                  Constants.prefs.setString(
+                      Constants.barcodeResultPrefKey, bloc.state.barcodeResult);
+                  bloc.add(AppSignUpSent(
+                      barcodeResult: bloc.state.barcodeResult,
+                      username: _usernameController.text,
+                      password: _passwordController.text));
                 },
                 color: Colors.cyan,
                 child: Text("Sign Up"),

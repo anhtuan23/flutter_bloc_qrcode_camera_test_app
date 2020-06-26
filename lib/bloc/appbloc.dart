@@ -9,17 +9,28 @@ part 'appbloc_state.dart';
 
 class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
   @override
-  AppBlocState get initialState =>
-      Constants.prefs.getBool(Constants.loggedInPrefKey) == true
-          ? AppBlocSignedUp()
-          : AppBlocSignedOut();
+  AppBlocState get initialState {
+    if (Constants.prefs.getBool(Constants.loggedInPrefKey) == true) {
+      var barcodeResult =
+          Constants.prefs.getString(Constants.barcodeResultPrefKey);
+      var username = Constants.prefs.getString(Constants.usernamePrefKey);
+      var password = Constants.prefs.getString(Constants.passwordPrefKey);
+      return AppBlocSignedUp(
+          barcodeResult: barcodeResult, username: username, password: password);
+    } else {
+      return AppBlocSignedOut();
+    }
+  }
 
   @override
   Stream<AppBlocState> mapEventToState(
     AppBlocEvent event,
   ) async* {
     if (event is AppSignUpSent) {
-      yield AppBlocSignedUp();
+      yield AppBlocSignedUp(
+          barcodeResult: event.barcodeResult,
+          username: event.username,
+          password: event.password);
     } else if (event is AppSignOutSent) {
       yield AppBlocSignedOut();
     } else if (event is AppBarcodeResultReceived) {
