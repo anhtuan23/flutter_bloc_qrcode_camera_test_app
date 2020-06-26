@@ -14,6 +14,13 @@ class AppblocBloc extends Bloc<AppblocEvents, AppblocState> {
   Stream<AppblocState> mapEventToState(
     AppblocEvents event,
   ) async* {
-    // TODO: implement mapEventToState
+    switch (event) {
+      case AppblocEvents.AppSignUpSent:
+        yield AppblocSignedUp();
+        break;
+      case AppblocEvents.AppSignOutSent:
+        yield AppblocSignedOut();
+        break;
+    }
   }
 }
