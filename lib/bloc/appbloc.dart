@@ -16,7 +16,10 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
       var username = Constants.prefs.getString(Constants.usernamePrefKey);
       var password = Constants.prefs.getString(Constants.passwordPrefKey);
       return AppBlocSignedUp(
-          barcodeResult: barcodeResult, username: username, password: password);
+          barcodeResult: barcodeResult,
+          username: username,
+          password: password,
+          imagePaths: []);
     } else {
       return AppBlocSignedOut();
     }
@@ -30,7 +33,8 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
       yield AppBlocSignedUp(
           barcodeResult: event.barcodeResult,
           username: event.username,
-          password: event.password);
+          password: event.password,
+          imagePaths: []);
     } else if (event is AppSignOutSent) {
       yield AppBlocSignedOut();
     } else if (event is AppBarcodeResultReceived) {
@@ -38,7 +42,19 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
     } else if (event is AppBarcodeResultErrorReceived) {
       yield AppBlocSignedOut(message: "Barcode scanning error");
     } else if (event is CameraRequestSent) {
-      yield AppBlocTakingPicture();
+      yield AppBlocTakingPicture(
+        username: event.username,
+        password: event.password,
+        barcodeResult: event.barcodeResult,
+        imagePaths: event.imagePaths,
+      );
+    } else if (event is PictureCaptured) {
+      yield AppBlocSignedUp(
+        username: event.username,
+        password: event.password,
+        barcodeResult: event.barcodeResult,
+        imagePaths: event.imagePaths,
+      );
     }
   }
 }

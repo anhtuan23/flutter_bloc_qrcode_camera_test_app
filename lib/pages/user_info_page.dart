@@ -4,7 +4,6 @@ import 'package:bloc_barcode_camera_demo_app/bloc/appbloc.dart';
 import 'package:bloc_barcode_camera_demo_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:camera/camera.dart';
 
 class UserInfoPage extends StatefulWidget {
   @override
@@ -12,7 +11,6 @@ class UserInfoPage extends StatefulWidget {
 }
 
 class _UserInfoPageState extends State<UserInfoPage> {
-
   @override
   Widget build(BuildContext context) {
     AppBloc bloc = BlocProvider.of<AppBloc>(context);
@@ -30,6 +28,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
               children: <Widget>[
                 Text('Barcode result: ${bloc.state.barcodeResult}'),
                 Text('Username : ${bloc.state.username}'),
+                Image.file(File(bloc.state.imagePaths.length > 0 ? bloc.state.imagePaths[0] : ""))
               ],
             ),
           ),
@@ -49,7 +48,14 @@ class _UserInfoPageState extends State<UserInfoPage> {
             FloatingActionButton(
               child: Icon(Icons.camera_alt),
               onPressed: () {
-                BlocProvider.of<AppBloc>(context).add(CameraRequestSent());
+                BlocProvider.of<AppBloc>(context).add(
+                  CameraRequestSent(
+                    username: bloc.state.username,
+                    password: bloc.state.password,
+                    barcodeResult: bloc.state.barcodeResult,
+                    imagePaths: bloc.state.imagePaths,
+                  ),
+                );
               },
             ),
           ],

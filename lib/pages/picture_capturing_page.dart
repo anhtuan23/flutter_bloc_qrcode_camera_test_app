@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:bloc_barcode_camera_demo_app/bloc/appbloc.dart';
 import 'package:bloc_barcode_camera_demo_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PictureCapturingPage extends StatefulWidget {
   @override
@@ -42,6 +44,7 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
 
   @override
   Widget build(BuildContext context) {
+    AppBloc bloc = BlocProvider.of<AppBloc>(context);
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -81,13 +84,15 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
               // Attempt to take a picture and log where it's been saved.
               await _controller.takePicture(path);
 
-              // If the picture was taken, display it on a new screen.
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DisplayPictureScreen(imagePath: path),
-                ),
-              );
+              bloc.state.imagePaths.add(path);
+
+              // If the picture was taken, send path back to user info page
+              BlocProvider.of<AppBloc>(context).add(PictureCaptured(
+                barcodeResult: bloc.state.barcodeResult,
+                username: bloc.state.username,
+                password: bloc.state.password,
+                imagePaths: bloc.state.imagePaths,
+              ));
             } catch (e) {
               // If an error occurs, log the error to the console.
               print(e);

@@ -7,24 +7,30 @@ abstract class AppBlocState {
   final bool barcodeScanned;
   final String username;
   final String password;
+  final List<String> imagePaths;
 
-  const AppBlocState(
-      {this.barcodeResult,
-      this.message,
-      this.barcodeScanned,
-      this.username,
-      this.password});
+  const AppBlocState({
+    this.barcodeResult,
+    this.message,
+    this.barcodeScanned,
+    this.username,
+    this.password,
+    this.imagePaths,
+  });
 }
 
 class AppBlocSignedUp extends AppBlocState {
-  const AppBlocSignedUp(
-      {@required String barcodeResult,
-      @required String username,
-      @required String password})
-      : super(
-            barcodeResult: barcodeResult,
-            username: username,
-            password: password);
+  const AppBlocSignedUp({
+    @required String barcodeResult,
+    @required String username,
+    @required String password,
+    @required List<String> imagePaths,
+  }) : super(
+          barcodeResult: barcodeResult,
+          username: username,
+          password: password,
+          imagePaths: imagePaths,
+        );
 }
 
 class AppBlocSignedOut extends AppBlocState {
@@ -40,6 +46,16 @@ class AppBlocSigningUp extends AppBlocState {
             barcodeScanned: true);
 }
 
-class AppBlocTakingPicture extends AppBlocState{
-  const AppBlocTakingPicture(): super();
+class AppBlocTakingPicture extends AppBlocState {
+  const AppBlocTakingPicture({
+    @required String barcodeResult,
+    @required String username,
+    @required String password,
+    @required List<String> imagePaths,
+  }) : super(
+          barcodeResult: barcodeResult,
+          username: username,
+          password: password,
+          imagePaths: imagePaths,
+        );
 }
