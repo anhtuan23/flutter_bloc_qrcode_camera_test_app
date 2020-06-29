@@ -9,9 +9,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:camera/camera.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   Constants.prefs = await SharedPreferences.getInstance();
+
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+  // Get a specific camera from the list of available cameras.
+  Constants.camera = cameras.first;
+
   runApp(BlocProvider(
     create: (context) => AppBloc(),
     child: MyApp(),
