@@ -36,6 +36,7 @@ dev_dependencies:
   equatable: ^1.0.0  
   barcode_scan: ^3.0.1
   shared_preferences: ^0.5.7+3
+  camera: ^0.5.8+2
 
 
 # For information on the generic Dart part of this file, see the
