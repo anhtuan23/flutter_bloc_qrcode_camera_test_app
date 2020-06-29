@@ -37,6 +37,8 @@ dev_dependencies:
   barcode_scan: ^3.0.1
   shared_preferences: ^0.5.7+3
   camera: ^0.5.8+2
+  path_provider: ^1.6.11
+  path: # no version because flutter_test any from sdk depends on path 1.6.4
 
 
 # For information on the generic Dart part of this file, see the
