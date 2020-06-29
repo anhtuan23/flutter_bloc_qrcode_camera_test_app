@@ -28,7 +28,34 @@ class _UserInfoPageState extends State<UserInfoPage> {
               children: <Widget>[
                 Text('Barcode result: ${bloc.state.barcodeResult}'),
                 Text('Username : ${bloc.state.username}'),
-                Image.file(File(bloc.state.imagePaths.length > 0 ? bloc.state.imagePaths[0] : ""))
+                Image.file(
+                  File(bloc.state.imagePaths.length > 0
+                      ? bloc.state.imagePaths[0]
+                      : ""),
+                  fit: BoxFit.contain,
+                  width: 300,
+                ),
+                Image.file(
+                  File(bloc.state.imagePaths.length > 1
+                      ? bloc.state.imagePaths[1]
+                      : ""),
+                  fit: BoxFit.contain,
+                  width: 300,
+                ),
+                Image.file(
+                  File(bloc.state.imagePaths.length > 2
+                      ? bloc.state.imagePaths[2]
+                      : ""),
+                  fit: BoxFit.contain,
+                  width: 300,
+                ),
+                Image.file(
+                  File(bloc.state.imagePaths.length > 3
+                      ? bloc.state.imagePaths[3]
+                      : ""),
+                  fit: BoxFit.contain,
+                  width: 300,
+                ),
               ],
             ),
           ),

@@ -84,7 +84,7 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
               // Attempt to take a picture and log where it's been saved.
               await _controller.takePicture(path);
 
-              bloc.state.imagePaths.add(path);
+              bloc.state.imagePaths.insert(0, path);
 
               // If the picture was taken, send path back to user info page
               BlocProvider.of<AppBloc>(context).add(PictureCaptured(
