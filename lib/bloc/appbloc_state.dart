@@ -39,3 +39,7 @@ class AppBlocSigningUp extends AppBlocState {
             message: 'Barcode result: $barcodeResult',
             barcodeScanned: true);
 }
+
+class AppBlocTakingPicture extends AppBlocState{
+  const AppBlocTakingPicture(): super();
+}

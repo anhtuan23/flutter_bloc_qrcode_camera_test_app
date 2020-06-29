@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:camera/camera.dart';
 
+import 'pages/picture_capturing_page.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -36,13 +38,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      // ignore: missing_return
       home: BlocBuilder<AppBloc, AppBlocState>(builder: (context, state) {
         if (state is AppBlocSignedOut) {
           return BarcodeScanningPage();
         } else if (state is AppBlocSigningUp) {
           return SignUpPage();
-        } else {
+        } else if (state is AppBlocSignedUp){
           return UserInfoPage();
+        } else if (state is AppBlocTakingPicture){
+          return PictureCapturingPage();
         }
       }),
     );

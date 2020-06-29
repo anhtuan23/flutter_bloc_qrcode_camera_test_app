@@ -22,3 +22,5 @@ class AppBarcodeResultReceived extends AppBlocEvent {
 }
 
 class AppBarcodeResultErrorReceived extends AppBlocEvent {}
+
+class CameraRequestSent extends AppBlocEvent {}

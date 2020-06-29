@@ -37,6 +37,8 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
       yield AppBlocSigningUp(barcodeResult: event.barcodeResult);
     } else if (event is AppBarcodeResultErrorReceived) {
       yield AppBlocSignedOut(message: "Barcode scanning error");
+    } else if (event is CameraRequestSent) {
+      yield AppBlocTakingPicture();
     }
   }
 }
