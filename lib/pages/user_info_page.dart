@@ -19,47 +19,20 @@ class _UserInfoPageState extends State<UserInfoPage> {
         appBar: AppBar(
           title: Text("User Info"),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
+        body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Barcode result: ${bloc.state.barcodeResult}'),
-                Text('Username : ${bloc.state.username}'),
-                Image.file(
-                  File(bloc.state.imagePaths.length > 0
-                      ? bloc.state.imagePaths[0]
-                      : ""),
-                  fit: BoxFit.contain,
-                  width: 300,
-                ),
-                Image.file(
-                  File(bloc.state.imagePaths.length > 1
-                      ? bloc.state.imagePaths[1]
-                      : ""),
-                  fit: BoxFit.contain,
-                  width: 300,
-                ),
-                Image.file(
-                  File(bloc.state.imagePaths.length > 2
-                      ? bloc.state.imagePaths[2]
-                      : ""),
-                  fit: BoxFit.contain,
-                  width: 300,
-                ),
-                Image.file(
-                  File(bloc.state.imagePaths.length > 3
-                      ? bloc.state.imagePaths[3]
-                      : ""),
-                  fit: BoxFit.contain,
-                  width: 300,
-                ),
-              ],
-            ),
-          ),
-        ),
+            child:
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: <Widget>[
+                //     Text('Barcode result: ${bloc.state.barcodeResult}'),
+                //     Text('Username : ${bloc.state.username}'),
+                ListView.builder(
+              itemBuilder: (BuildContext context, int index) =>
+                  ImageRow(imagePath: bloc.state.imagePaths[index]),
+              itemCount: bloc.state.imagePaths.length,
+            )),
         floatingActionButton: Row(
           children: <Widget>[
             FloatingActionButton(
@@ -92,19 +65,17 @@ class _UserInfoPageState extends State<UserInfoPage> {
   }
 }
 
-// A widget that displays the picture taken by the user.
-class DisplayPictureScreen extends StatelessWidget {
+class ImageRow extends StatelessWidget {
   final String imagePath;
-
-  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
+  const ImageRow({Key key, @required this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Display the Picture')),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+    return ListTile(
+      leading: Image.file(
+        File(imagePath),
+      ),
+      title: Text("GPS"),
     );
   }
 }
