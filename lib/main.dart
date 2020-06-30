@@ -14,7 +14,8 @@ import 'package:camera/camera.dart';
 import 'pages/picture_capturing_page.dart';
 
 void main() async {
-
+  WidgetsFlutterBinding.ensureInitialized();
+  Constants.prefs = await SharedPreferences.getInstance();
   runApp(BlocProvider(
     create: (context) => AppBloc(),
     child: MyApp(),
@@ -36,9 +37,9 @@ class MyApp extends StatelessWidget {
           return BarcodeScanningPage();
         } else if (state is AppBlocSigningUp) {
           return SignUpPage();
-        } else if (state is AppBlocSignedUp){
+        } else if (state is AppBlocSignedUp) {
           return UserInfoPage();
-        } else if (state is AppBlocTakingPicture){
+        } else if (state is AppBlocTakingPicture) {
           return PictureCapturingPage();
         }
       }),
