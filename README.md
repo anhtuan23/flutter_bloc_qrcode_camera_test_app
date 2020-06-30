@@ -6,7 +6,7 @@ Currently, there are 4 screens:
  2. **Signing Up Screen**: where user input username and password for signing up
  3. **User Info Screen**: 
 		 - displays Barcode/QRcode from screen (1) and username info from screen (2)
-		 - capture images with GPS exif (*not implemented*) 
+		 - capture images with GPS)
 		 - delete captured images (*not implemented*) 
 		 - sign out and re-register
   4. **Image capture screen**
@@ -24,7 +24,6 @@ Currently, there are 4 screens:
 
 ***Explanation***: All input info from screen (1) and (2) is loaded and displayed directly on screen (3). Data is persisted using SharedPref.
 # TODO
-- Capture images with GPS exif
 - Delete captured images
 - Limit capture images to 4
 - Beautify UI
