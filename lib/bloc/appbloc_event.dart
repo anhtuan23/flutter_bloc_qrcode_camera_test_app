@@ -27,12 +27,12 @@ class CameraRequestSent extends AppBlocEvent {
   final String barcodeResult;
   final String username;
   final String password;
-  final List<String> imagePaths;
+  final List<CapturedImage> images;
   const CameraRequestSent({
     @required this.barcodeResult,
     @required this.username,
     @required this.password,
-    @required this.imagePaths,
+    @required this.images,
   });
 }
 
@@ -40,11 +40,11 @@ class PictureCaptured extends AppBlocEvent {
   final String barcodeResult;
   final String username;
   final String password;
-  final List<String> imagePaths;
+  final List<CapturedImage> images;
   const PictureCaptured({
     @required this.barcodeResult,
     @required this.username,
     @required this.password,
-    @required this.imagePaths,
+    @required this.images,
   });
 }

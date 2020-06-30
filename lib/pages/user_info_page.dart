@@ -4,6 +4,7 @@ import 'package:bloc_barcode_camera_demo_app/bloc/appbloc.dart';
 import 'package:bloc_barcode_camera_demo_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc_barcode_camera_demo_app/models/models.dart';
 
 class UserInfoPage extends StatefulWidget {
   @override
@@ -30,8 +31,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 //     Text('Username : ${bloc.state.username}'),
                 ListView.builder(
               itemBuilder: (BuildContext context, int index) =>
-                  ImageRow(imagePath: bloc.state.imagePaths[index]),
-              itemCount: bloc.state.imagePaths.length,
+                  ImageRow(image: bloc.state.images[index]),
+              itemCount: bloc.state.images.length,
             )),
         floatingActionButton: Row(
           children: <Widget>[
@@ -53,7 +54,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     username: bloc.state.username,
                     password: bloc.state.password,
                     barcodeResult: bloc.state.barcodeResult,
-                    imagePaths: bloc.state.imagePaths,
+                    images: bloc.state.images,
                   ),
                 );
               },
@@ -66,16 +67,17 @@ class _UserInfoPageState extends State<UserInfoPage> {
 }
 
 class ImageRow extends StatelessWidget {
-  final String imagePath;
-  const ImageRow({Key key, @required this.imagePath}) : super(key: key);
+  final CapturedImage image;
+  const ImageRow({Key key, @required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Image.file(
-        File(imagePath),
+        File(image.path),
       ),
-      title: Text("GPS"),
+      title: Text(
+          'Latitude : ${image.latitude} - Longtitude : ${image.longtitude}'),
     );
   }
 }

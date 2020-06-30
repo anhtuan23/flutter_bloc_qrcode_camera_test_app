@@ -8,6 +8,7 @@ import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:bloc_barcode_camera_demo_app/models/models.dart';
 
 class PictureCapturingPage extends StatefulWidget {
   @override
@@ -110,14 +111,20 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
               // Attempt to take a picture and log where it's been saved.
               await _controller.takePicture(path);
 
-              bloc.state.imagePaths.insert(0, path);
+              bloc.state.images.insert(
+                  0,
+                  CapturedImage(
+                    path: path,
+                    longtitude: _currentPosition.longitude,
+                    latitude: _currentPosition.latitude,
+                  ));
 
               // If the picture was taken, send path back to user info page
               BlocProvider.of<AppBloc>(context).add(PictureCaptured(
                 barcodeResult: bloc.state.barcodeResult,
                 username: bloc.state.username,
                 password: bloc.state.password,
-                imagePaths: bloc.state.imagePaths,
+                images: bloc.state.images,
               ));
             } catch (e) {
               // If an error occurs, log the error to the console.

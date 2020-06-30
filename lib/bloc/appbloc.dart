@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_barcode_camera_demo_app/utils/constants.dart';
 import 'package:meta/meta.dart';
+import 'package:bloc_barcode_camera_demo_app/models/models.dart';
 
 part 'appbloc_event.dart';
 part 'appbloc_state.dart';
@@ -19,7 +20,7 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
           barcodeResult: barcodeResult,
           username: username,
           password: password,
-          imagePaths: []);
+          images: []);
     } else {
       return AppBlocSignedOut();
     }
@@ -34,7 +35,7 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
           barcodeResult: event.barcodeResult,
           username: event.username,
           password: event.password,
-          imagePaths: []);
+          images: []);
     } else if (event is AppSignOutSent) {
       yield AppBlocSignedOut();
     } else if (event is AppBarcodeResultReceived) {
@@ -46,14 +47,14 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
         username: event.username,
         password: event.password,
         barcodeResult: event.barcodeResult,
-        imagePaths: event.imagePaths,
+        images: event.images,
       );
     } else if (event is PictureCaptured) {
       yield AppBlocSignedUp(
         username: event.username,
         password: event.password,
         barcodeResult: event.barcodeResult,
-        imagePaths: event.imagePaths,
+        images: event.images,
       );
     }
   }

@@ -7,7 +7,7 @@ abstract class AppBlocState {
   final bool barcodeScanned;
   final String username;
   final String password;
-  final List<String> imagePaths;
+  final List<CapturedImage> images;
 
   const AppBlocState({
     this.barcodeResult,
@@ -15,7 +15,7 @@ abstract class AppBlocState {
     this.barcodeScanned,
     this.username,
     this.password,
-    this.imagePaths,
+    this.images,
   });
 }
 
@@ -24,12 +24,12 @@ class AppBlocSignedUp extends AppBlocState {
     @required String barcodeResult,
     @required String username,
     @required String password,
-    @required List<String> imagePaths,
+    @required List<CapturedImage> images,
   }) : super(
           barcodeResult: barcodeResult,
           username: username,
           password: password,
-          imagePaths: imagePaths,
+          images: images,
         );
 }
 
@@ -51,11 +51,11 @@ class AppBlocTakingPicture extends AppBlocState {
     @required String barcodeResult,
     @required String username,
     @required String password,
-    @required List<String> imagePaths,
+    @required List<CapturedImage> images,
   }) : super(
           barcodeResult: barcodeResult,
           username: username,
           password: password,
-          imagePaths: imagePaths,
+          images: images,
         );
 }
