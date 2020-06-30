@@ -7,6 +7,7 @@ import 'package:camera/camera.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
 class PictureCapturingPage extends StatefulWidget {
   @override
@@ -18,11 +19,13 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
   // the Future.
   CameraController _controller;
   Future<void> _initializeControllerFuture;
+  Position _currentPosition;
 
   @override
   void initState() {
     super.initState();
-    
+    _getCurrentLocation();
+
     // Obtain a list of the available cameras on the device.
     availableCameras().then((cameras) {
       // Get a specific camera from the list of available cameras.
@@ -36,9 +39,23 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
 
       // Next, initialize the controller. This returns a Future.
       _initializeControllerFuture = _controller.initialize();
-      
+
       // Must call setState to update this future to the widget future builder
       setState(() {});
+    });
+  }
+
+  _getCurrentLocation() {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+    }).catchError((e) {
+      print(e);
     });
   }
 
@@ -73,6 +90,8 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
           child: Icon(Icons.camera_alt),
           // Provide an onPressed callback.
           onPressed: () async {
+            print(
+                'Latitude : ${_currentPosition.latitude} - Longtitude : ${_currentPosition.longitude}');
             // Take the Picture in a try / catch block. If anything goes wrong,
             // catch the error.
             try {
