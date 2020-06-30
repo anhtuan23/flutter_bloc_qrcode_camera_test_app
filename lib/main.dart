@@ -14,14 +14,6 @@ import 'package:camera/camera.dart';
 import 'pages/picture_capturing_page.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  Constants.prefs = await SharedPreferences.getInstance();
-
-  // Obtain a list of the available cameras on the device.
-  final cameras = await availableCameras();
-  // Get a specific camera from the list of available cameras.
-  Constants.camera = cameras.first;
 
   runApp(BlocProvider(
     create: (context) => AppBloc(),

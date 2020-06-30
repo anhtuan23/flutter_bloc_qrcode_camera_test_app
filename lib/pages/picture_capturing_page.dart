@@ -22,17 +22,24 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
   @override
   void initState() {
     super.initState();
-    // To display the current output from the camera,
-    // create a CameraController.
-    _controller = CameraController(
+    
+    // Obtain a list of the available cameras on the device.
+    availableCameras().then((cameras) {
       // Get a specific camera from the list of available cameras.
-      Constants.camera,
-      // Define the resolution to use.
-      ResolutionPreset.medium,
-    );
+      var camera = cameras.first;
+      // To display the current output from the camera,
+      // create a CameraController.
+      _controller = CameraController(
+        camera,
+        ResolutionPreset.medium,
+      );
 
-    // Next, initialize the controller. This returns a Future.
-    _initializeControllerFuture = _controller.initialize();
+      // Next, initialize the controller. This returns a Future.
+      _initializeControllerFuture = _controller.initialize();
+      
+      // Must call setState to update this future to the widget future builder
+      setState(() {});
+    });
   }
 
   @override
