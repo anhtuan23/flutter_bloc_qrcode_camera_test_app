@@ -36,29 +36,37 @@ class _UserInfoPageState extends State<UserInfoPage> {
               itemCount: bloc.state.images.length,
             )),
         floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            FloatingActionButton(
-              child: Icon(Icons.exit_to_app),
-              onPressed: () {
-                Constants.prefs.setBool(Constants.loggedInPrefKey, false);
-                Constants.prefs.setString(Constants.usernamePrefKey, null);
-                Constants.prefs.setString(Constants.passwordPrefKey, null);
-                Constants.prefs.setString(Constants.barcodeResultPrefKey, null);
-                BlocProvider.of<AppBloc>(context).add(AppSignOutSent());
-              },
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FloatingActionButton(
+                child: Icon(Icons.exit_to_app),
+                onPressed: () {
+                  Constants.prefs.setBool(Constants.loggedInPrefKey, false);
+                  Constants.prefs.setString(Constants.usernamePrefKey, null);
+                  Constants.prefs.setString(Constants.passwordPrefKey, null);
+                  Constants.prefs
+                      .setString(Constants.barcodeResultPrefKey, null);
+                  BlocProvider.of<AppBloc>(context).add(AppSignOutSent());
+                },
+              ),
             ),
-            FloatingActionButton(
-              child: Icon(Icons.camera_alt),
-              onPressed: () {
-                BlocProvider.of<AppBloc>(context).add(
-                  CameraRequestSent(
-                    username: bloc.state.username,
-                    password: bloc.state.password,
-                    barcodeResult: bloc.state.barcodeResult,
-                    images: bloc.state.images,
-                  ),
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FloatingActionButton(
+                child: Icon(Icons.camera_alt),
+                onPressed: () {
+                  BlocProvider.of<AppBloc>(context).add(
+                    CameraRequestSent(
+                      username: bloc.state.username,
+                      password: bloc.state.password,
+                      barcodeResult: bloc.state.barcodeResult,
+                      images: bloc.state.images,
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
