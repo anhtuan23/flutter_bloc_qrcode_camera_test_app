@@ -23,19 +23,13 @@ class _UserInfoPageState extends State<UserInfoPage> {
         ),
         body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child:
-                // Column(
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: <Widget>[
-                //     Text('Barcode result: ${bloc.state.barcodeResult}'),
-                //     Text('Username : ${bloc.state.username}'),
-                ListView.builder(
+            child: ListView.builder(
               itemBuilder: (BuildContext context, int index) => ImageRow(
-                image: bloc.state.images[index],
+                // Header doesn't have an image
+                image: index > 0 ? bloc.state.images[index - 1] : null,
                 index: index,
               ),
-              itemCount: bloc.state.images.length,
+              itemCount: bloc.state.images.length + 1,
             )),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -86,25 +80,46 @@ class ImageRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: Key(image.path),
-      onDismissed: (direction) {
-        // ignore: close_sinks
-        var bloc = BlocProvider.of<AppBloc>(context);
-        bloc.add(ImageDeleted(state: bloc.state, deleteIndex: index));
+    // ignore: close_sinks
+    var bloc = BlocProvider.of<AppBloc>(context);
+    //Header
+    if (index == 0) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Hi ${bloc.state.username}!'),
+              Text('Barcode: ${bloc.state.barcodeResult}'),
+              SizedBox(height: 16,),
+              Text('Swipe to delete image'),
+            ]),
+      );
+    } else {
+      return Dismissible(
+        key: Key(image.path),
+        onDismissed: (direction) {
+          // ignore: close_sinks
+          bloc.add(ImageDeleted(
+            state: bloc.state,
+            deleteIndex: index - 1 /*compensate for header*/,
+          ));
 
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text("Image number ${(index + 1).toString()} dismissed"),
-        ));
-      },
-      background: Container(color: Colors.red),
-      child: ListTile(
-        leading: Image.file(
-          File(image.path),
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("Image number ${index.toString()} deleted"),
+          ));
+        },
+        background: Container(color: Colors.red),
+        child: ListTile(
+          leading: Image.file(
+            File(image.path),
+          ),
+          title: Text(
+            'Latitude : ${image.latitude} - Longtitude : ${image.longtitude}',
+          ),
         ),
-        title: Text(
-            'Latitude : ${image.latitude} - Longtitude : ${image.longtitude}'),
-      ),
-    );
+      );
+    }
   }
 }
