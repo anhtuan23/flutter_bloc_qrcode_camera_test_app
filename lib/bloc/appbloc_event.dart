@@ -48,3 +48,12 @@ class PictureCaptured extends AppBlocEvent {
     @required this.images,
   });
 }
+
+class ImageDeleted extends AppBlocEvent {
+  final AppBlocSignedUp state;
+  final int deleteIndex;
+  ImageDeleted({
+    @required this.state,
+    @required this.deleteIndex,
+  });
+}

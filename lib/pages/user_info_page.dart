@@ -31,8 +31,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 //     Text('Barcode result: ${bloc.state.barcodeResult}'),
                 //     Text('Username : ${bloc.state.username}'),
                 ListView.builder(
-              itemBuilder: (BuildContext context, int index) =>
-                  ImageRow(image: bloc.state.images[index]),
+              itemBuilder: (BuildContext context, int index) => ImageRow(
+                image: bloc.state.images[index],
+                index: index,
+              ),
               itemCount: bloc.state.images.length,
             )),
         floatingActionButton: Row(
@@ -52,22 +54,23 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 },
               ),
             ),
-            if (bloc.state.images.length < 4 ) Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FloatingActionButton(
-                child: Icon(Icons.camera_alt),
-                onPressed: () {
-                  BlocProvider.of<AppBloc>(context).add(
-                    CameraRequestSent(
-                      username: bloc.state.username,
-                      password: bloc.state.password,
-                      barcodeResult: bloc.state.barcodeResult,
-                      images: bloc.state.images,
-                    ),
-                  );
-                },
+            if (bloc.state.images.length < 4)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: FloatingActionButton(
+                  child: Icon(Icons.camera_alt),
+                  onPressed: () {
+                    BlocProvider.of<AppBloc>(context).add(
+                      CameraRequestSent(
+                        username: bloc.state.username,
+                        password: bloc.state.password,
+                        barcodeResult: bloc.state.barcodeResult,
+                        images: bloc.state.images,
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -77,16 +80,31 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
 class ImageRow extends StatelessWidget {
   final CapturedImage image;
-  const ImageRow({Key key, @required this.image}) : super(key: key);
+  final int index;
+  const ImageRow({Key key, @required this.image, @required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.file(
-        File(image.path),
+    return Dismissible(
+      key: Key(image.path),
+      onDismissed: (direction) {
+        // ignore: close_sinks
+        var bloc = BlocProvider.of<AppBloc>(context);
+        bloc.add(ImageDeleted(state: bloc.state, deleteIndex: index));
+
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Image number ${(index + 1).toString()} dismissed"),
+        ));
+      },
+      background: Container(color: Colors.red),
+      child: ListTile(
+        leading: Image.file(
+          File(image.path),
+        ),
+        title: Text(
+            'Latitude : ${image.latitude} - Longtitude : ${image.longtitude}'),
       ),
-      title: Text(
-          'Latitude : ${image.latitude} - Longtitude : ${image.longtitude}'),
     );
   }
 }

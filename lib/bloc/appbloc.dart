@@ -56,6 +56,15 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
         barcodeResult: event.barcodeResult,
         images: event.images,
       );
+    } else if (event is ImageDeleted) {
+      List<CapturedImage> newImages = event.state.images
+        ..removeAt(event.deleteIndex);
+      yield AppBlocSignedUp(
+        barcodeResult: event.state.barcodeResult,
+        username: event.state.username,
+        password: event.state.password,
+        images: newImages,
+      );
     }
   }
 }
