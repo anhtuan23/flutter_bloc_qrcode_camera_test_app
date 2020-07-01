@@ -52,7 +52,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 },
               ),
             ),
-            Padding(
+            if (bloc.state.images.length < 4 ) Padding(
               padding: const EdgeInsets.all(16.0),
               child: FloatingActionButton(
                 child: Icon(Icons.camera_alt),
