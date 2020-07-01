@@ -21,16 +21,14 @@ class _UserInfoPageState extends State<UserInfoPage> {
         appBar: AppBar(
           title: Text("User Info"),
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) => ImageRow(
-                // Header doesn't have an image
-                image: index > 0 ? bloc.state.images[index - 1] : null,
-                index: index,
-              ),
-              itemCount: bloc.state.images.length + 1,
-            )),
+        body: ListView.builder(
+          itemBuilder: (BuildContext context, int index) => ImageRow(
+            // Header doesn't have an image
+            image: index > 0 ? bloc.state.images[index - 1] : null,
+            index: index,
+          ),
+          itemCount: bloc.state.images.length + 1,
+        ),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
