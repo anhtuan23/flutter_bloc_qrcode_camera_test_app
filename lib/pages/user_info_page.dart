@@ -90,9 +90,15 @@ class ImageRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: AssetImage('assets/avatar-placeholder.png'),
+              ),
               Text('Hi ${bloc.state.username}!'),
               Text('Barcode: ${bloc.state.barcodeResult}'),
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               Text('Swipe to delete image'),
             ]),
       );
