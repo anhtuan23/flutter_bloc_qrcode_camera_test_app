@@ -6,7 +6,7 @@ Currently, there are 4 screens:
  2. **Signing Up Screen**: where user input username and password for signing up
  3. **User Info Screen**: 
 		 - displays Barcode/QRcode from screen (1) and username info from screen (2)
-		 - capture images with GPS)
+		 - capture images with GPS
 		 - delete captured images 
 		 - sign out and re-register
   4. **Image capture screen**
