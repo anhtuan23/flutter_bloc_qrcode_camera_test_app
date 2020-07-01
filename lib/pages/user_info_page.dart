@@ -106,7 +106,9 @@ class ImageRow extends StatelessWidget {
                 ),
             ]),
       );
-    } else {
+    }
+    // Captured Image List item
+     else {
       return Dismissible(
         key: Key(image.path),
         onDismissed: (direction) {
