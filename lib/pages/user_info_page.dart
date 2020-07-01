@@ -100,10 +100,12 @@ class ImageRow extends StatelessWidget {
               ),
               Text('Hi ${bloc.state.username}!'),
               Text('Barcode: ${bloc.state.barcodeResult}'),
-              SizedBox(
-                height: 16,
-              ),
-              Text('Swipe to delete image'),
+              SizedBox(height: 16),
+              if (bloc.state.images.length > 0)
+                Text(
+                  'Long press to set image as profile picture\nSwipe to delete image',
+                  textAlign: TextAlign.center,
+                ),
             ]),
       );
     } else {
