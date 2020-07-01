@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:bloc_barcode_camera_demo_app/bloc/appbloc.dart';
-import 'package:bloc_barcode_camera_demo_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:path/path.dart' show join;
