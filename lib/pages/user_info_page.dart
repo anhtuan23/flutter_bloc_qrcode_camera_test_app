@@ -44,6 +44,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   Constants.prefs.setString(Constants.passwordPrefKey, null);
                   Constants.prefs
                       .setString(Constants.barcodeResultPrefKey, null);
+                  Constants.prefs.setString(Constants.profileImagePath, null);
                   BlocProvider.of<AppBloc>(context).add(AppSignOutSent());
                 },
               ),
@@ -84,6 +85,7 @@ class ImageRow extends StatelessWidget {
     var bloc = BlocProvider.of<AppBloc>(context);
     //Header
     if (index == 0) {
+      String profileImagePath = bloc.state.profileImagePath;
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -92,7 +94,9 @@ class ImageRow extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 radius: 20,
-                backgroundImage: AssetImage('assets/avatar-placeholder.png'),
+                backgroundImage: profileImagePath == null
+                    ? AssetImage('assets/avatar-placeholder.png')
+                    : FileImage(File(profileImagePath)),
               ),
               Text('Hi ${bloc.state.username}!'),
               Text('Barcode: ${bloc.state.barcodeResult}'),
@@ -118,6 +122,19 @@ class ImageRow extends StatelessWidget {
         },
         background: Container(color: Colors.red),
         child: ListTile(
+          onLongPress: () {
+            bloc.add(ProfileImageSelected(
+              state: bloc.state,
+              profileImagePath: image.path,
+            ));
+
+            Constants.prefs.setString(Constants.profileImagePath, image.path);
+
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content:
+                  Text("Image number ${index.toString()} chosen as profile"),
+            ));
+          },
           leading: Image.file(
             File(image.path),
           ),

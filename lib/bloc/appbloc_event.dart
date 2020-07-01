@@ -8,10 +8,13 @@ class AppSignUpSent extends AppBlocEvent {
   final String barcodeResult;
   final String username;
   final String password;
-  const AppSignUpSent(
-      {@required this.barcodeResult,
-      @required this.username,
-      @required this.password});
+  final String profileImagePath;
+  const AppSignUpSent({
+    @required this.barcodeResult,
+    @required this.username,
+    @required this.password,
+    this.profileImagePath,
+  });
 }
 
 class AppSignOutSent extends AppBlocEvent {}
@@ -55,5 +58,14 @@ class ImageDeleted extends AppBlocEvent {
   ImageDeleted({
     @required this.state,
     @required this.deleteIndex,
+  });
+}
+
+class ProfileImageSelected extends AppBlocEvent {
+  final AppBlocSignedUp state;
+  final String profileImagePath;
+  ProfileImageSelected({
+    @required this.state,
+    @required this.profileImagePath,
   });
 }

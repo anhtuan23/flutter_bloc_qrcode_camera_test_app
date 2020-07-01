@@ -8,6 +8,7 @@ abstract class AppBlocState {
   final String username;
   final String password;
   final List<CapturedImage> images;
+  final String profileImagePath;
 
   const AppBlocState({
     this.barcodeResult,
@@ -16,6 +17,7 @@ abstract class AppBlocState {
     this.username,
     this.password,
     this.images,
+    this.profileImagePath,
   });
 }
 
@@ -25,11 +27,13 @@ class AppBlocSignedUp extends AppBlocState {
     @required String username,
     @required String password,
     @required List<CapturedImage> images,
+    @required String profileImagePath,
   }) : super(
           barcodeResult: barcodeResult,
           username: username,
           password: password,
           images: images,
+          profileImagePath: profileImagePath,
         );
 }
 

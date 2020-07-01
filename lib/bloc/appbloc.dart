@@ -16,11 +16,14 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
           Constants.prefs.getString(Constants.barcodeResultPrefKey);
       var username = Constants.prefs.getString(Constants.usernamePrefKey);
       var password = Constants.prefs.getString(Constants.passwordPrefKey);
+      var profileImagePath =
+          Constants.prefs.getString(Constants.profileImagePath);
       return AppBlocSignedUp(
           barcodeResult: barcodeResult,
           username: username,
           password: password,
-          images: []);
+          images: [],
+          profileImagePath: profileImagePath);
     } else {
       return AppBlocSignedOut();
     }
@@ -30,12 +33,16 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
   Stream<AppBlocState> mapEventToState(
     AppBlocEvent event,
   ) async* {
+    String profileImagePath =
+        Constants.prefs.getString(Constants.profileImagePath);
     if (event is AppSignUpSent) {
       yield AppBlocSignedUp(
-          barcodeResult: event.barcodeResult,
-          username: event.username,
-          password: event.password,
-          images: []);
+        barcodeResult: event.barcodeResult,
+        username: event.username,
+        password: event.password,
+        images: [],
+        profileImagePath: profileImagePath,
+      );
     } else if (event is AppSignOutSent) {
       yield AppBlocSignedOut();
     } else if (event is AppBarcodeResultReceived) {
@@ -55,6 +62,7 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
         password: event.password,
         barcodeResult: event.barcodeResult,
         images: event.images,
+        profileImagePath: profileImagePath,
       );
     } else if (event is ImageDeleted) {
       List<CapturedImage> newImages = event.state.images
@@ -64,6 +72,15 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
         username: event.state.username,
         password: event.state.password,
         images: newImages,
+        profileImagePath: profileImagePath,
+      );
+    } else if (event is ProfileImageSelected) {
+      yield AppBlocSignedUp(
+        barcodeResult: event.state.barcodeResult,
+        username: event.state.username,
+        password: event.state.password,
+        images: event.state.images,
+        profileImagePath: event.profileImagePath,
       );
     }
   }

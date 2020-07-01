@@ -109,7 +109,7 @@ class SignInForm extends StatelessWidget {
                   bloc.add(AppSignUpSent(
                       barcodeResult: bloc.state.barcodeResult,
                       username: _usernameController.text,
-                      password: _passwordController.text));
+                      password: _passwordController.text,));
                 },
                 color: Colors.cyan,
                 child: Text("Sign Up"),
