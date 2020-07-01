@@ -67,6 +67,7 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //ignore: close_sinks
     AppBloc bloc = BlocProvider.of<AppBloc>(context);
 
     return Card(

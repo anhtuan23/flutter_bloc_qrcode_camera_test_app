@@ -67,6 +67,7 @@ class _PictureCapturingPageState extends State<PictureCapturingPage> {
 
   @override
   Widget build(BuildContext context) {
+    //ignore: close_sinks
     AppBloc bloc = BlocProvider.of<AppBloc>(context);
     return Container(
       child: Scaffold(
